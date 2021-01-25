@@ -1,0 +1,233 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Proyecto Cloud Computing</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"
+          >Telefonos<span class="sr-only">(current)</span></a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+<br />
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <button
+        type="button"
+        class="btn btn-success"
+        data-toggle="modal"
+        data-target="#exampleModal"
+      >
+        Agregar nuevo
+      </button>
+    </div>
+    <div class="col-4">
+      <h4>Listado de Telefonos</h4>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Modelo</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of telefonos; let i = index">
+              <th scope="row">{{ item.id_telefono }}</th>
+              <td>{{ item.marca }}</td>
+              <td>{{ item.modelo }}</td>
+              <td>{{ item.stock }}</td>
+              <td>
+                <!-- Button trigger modal -->
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  [attr.data-target]="'#exam' + i"
+                >
+                  Editar
+                </button>
+
+                <button
+                  type="button"
+                  style="margin-left: 10px"
+                  class="btn btn-danger"
+                  (click)="deleteTelefono(item)"
+                >
+                  Eliminar
+                </button>
+              </td>
+
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                [attr.id]="'exam' + i"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Editar Telefono
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Marca</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="item.marca"
+                          class="form-control"
+                          id="marca"
+                          placeholder="Ingrese la marca"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Modelo</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="item.modelo"
+                          class="form-control"
+                          id="modelo"
+                          placeholder="Ingrese el modelo"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Stock</label>
+                        <input
+                          type="number"
+                          [(ngModel)]="item.stock"
+                          class="form-control"
+                          id="stock"
+                        />
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="updateTelefono(item)"
+                        data-dismiss="modal"
+                      >
+                        Editar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Telefono</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Marca</label>
+          <input
+            type="text"
+            [(ngModel)]="telefono.marca"
+            class="form-control"
+            id="marca"
+            placeholder="Ingrese la marca"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Modelo</label>
+          <input
+            type="text"
+            [(ngModel)]="telefono.modelo"
+            class="form-control"
+            id="modelo"
+            placeholder="Ingrese el modelo"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Stock</label>
+          <input
+            type="number"
+            [(ngModel)]="telefono.stock"
+            class="form-control"
+            id="stock"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="createTelefono()"
+          data-dismiss="modal"
+        >
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
